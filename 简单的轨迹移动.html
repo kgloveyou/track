@@ -1,0 +1,564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Insert title here</title>
+		<script>
+			var dojoConfig = {
+				parseOnLoad : true
+			};
+		</script>
+		<style>
+			html, body, #map {
+				margin: 0;
+				height: 100%;
+				overflow: hidden;
+			}
+		</style>
+<!-- 		<link rel="stylesheet" type="text/css" href="http://tm.arcgisonline.cn/arcgis_js_v28_c/library/2.8/jsapicompact/js/dojo/dijit/themes/tundra/tundra.css"> -->
+		<link rel="stylesheet" href="https://js.arcgis.com/3.23/dijit/themes/tundra/tundra.css"> 
+		 <link rel="stylesheet" href="https://js.arcgis.com/3.23/esri/css/esri.css">
+		 <script src="https://js.arcgis.com/3.23/"></script>  
+		<!-- 		<script type="text/javascript" src="http://tm.arcgisonline.cn/arcgis_js_v28_c/library/2.8/jsapicompact/"></script> -->
+		<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+		<script>
+			dojo.require("esri.map");
+			dojo.require("esri.graphic");
+			var response = {
+				"message" : "成功",
+				"result" : {
+					"name" : "清松(第01号台风SONAMU)",
+					"id" : "1301",
+					"tracks" : [{
+						"id" : "5b53a2c3-c7a5-41c9-a6ca-abc0f94229f1",
+						"lat" : 9.1,
+						"lon" : 119.5,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357214400000,
+						"qy" : 1002.0,
+						"fs" : 18.0,
+						"d7" : 150.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "0243de3b-8554-4605-bbe6-e747f3af77c8",
+						"lat" : 9.1,
+						"lon" : 118.5,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357225200000,
+						"qy" : 1002.0,
+						"fs" : 18.0,
+						"d7" : 150.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "d1fba5d6-3233-4aaf-b8c4-0cc62e407d9c",
+						"lat" : 8.9,
+						"lon" : 116.5,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357236000000,
+						"qy" : 1002.0,
+						"fs" : 18.0,
+						"d7" : 150.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "91905038-8fc6-42d7-ae9a-b04ce6114418",
+						"lat" : 8.9,
+						"lon" : 116.5,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357246800000,
+						"qy" : 1002.0,
+						"fs" : 18.0,
+						"d7" : 150.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "48b1da42-fa61-4a0a-bc80-4522b6814e45",
+						"lat" : 8.6,
+						"lon" : 115.6,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357279200000,
+						"qy" : 1000.0,
+						"fs" : 20.0,
+						"d7" : 150.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "6b3e4175-5240-4f56-9172-3884cc870f03",
+						"lat" : 8.7,
+						"lon" : 114.7,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357290000000,
+						"qy" : 998.0,
+						"fs" : 20.0,
+						"d7" : 150.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "be2b8d58-4eda-42ba-b9cc-b998fce405ac",
+						"lat" : 9.0,
+						"lon" : 114.0,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357300800000,
+						"qy" : 998.0,
+						"fs" : 20.0,
+						"d7" : 150.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "f9331774-12c9-4e5f-99d6-e02bb5106bf0",
+						"lat" : 9.0,
+						"lon" : 113.2,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357311600000,
+						"qy" : 998.0,
+						"fs" : 20.0,
+						"d7" : 150.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "dd131281-6915-4962-a7c2-56e2008441b6",
+						"lat" : 8.7,
+						"lon" : 113.0,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357322400000,
+						"qy" : 998.0,
+						"fs" : 20.0,
+						"d7" : 150.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "f1441a47-6499-4d4a-812d-9f59c3fcffb0",
+						"lat" : 8.5,
+						"lon" : 112.6,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357333200000,
+						"qy" : 998.0,
+						"fs" : 20.0,
+						"d7" : 150.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "da4f95da-7fb7-4752-bfad-b42a87a094ea",
+						"lat" : 8.3,
+						"lon" : 111.9,
+						"typhoonId" : "1301",
+						"fl" : 9.0,
+						"sd" : null,
+						"issueTime" : 1357344000000,
+						"qy" : 992.0,
+						"fs" : 23.0,
+						"d7" : 180.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "6749ce92-3694-4648-ac70-514d2507866f",
+						"lat" : 8.0,
+						"lon" : 111.5,
+						"typhoonId" : "1301",
+						"fl" : 9.0,
+						"sd" : null,
+						"issueTime" : 1357354800000,
+						"qy" : 992.0,
+						"fs" : 23.0,
+						"d7" : 180.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "f063ca2a-3e1b-4dab-855d-ba555c72909f",
+						"lat" : 7.9,
+						"lon" : 111.4,
+						"typhoonId" : "1301",
+						"fl" : 9.0,
+						"sd" : null,
+						"issueTime" : 1357365600000,
+						"qy" : 992.0,
+						"fs" : 23.0,
+						"d7" : 180.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "b29d77ee-dd05-4493-a527-fa6011d6bc3b",
+						"lat" : 7.8,
+						"lon" : 110.9,
+						"typhoonId" : "1301",
+						"fl" : 9.0,
+						"sd" : null,
+						"issueTime" : 1357376400000,
+						"qy" : 994.0,
+						"fs" : 23.0,
+						"d7" : 180.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "81b1cc5c-49fa-44f4-9d3c-f4ccd8e2b23d",
+						"lat" : 7.8,
+						"lon" : 110.7,
+						"typhoonId" : "1301",
+						"fl" : 9.0,
+						"sd" : null,
+						"issueTime" : 1357387200000,
+						"qy" : 994.0,
+						"fs" : 23.0,
+						"d7" : 180.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "0b568648-3bf5-4f31-bf55-ed4decba8a37",
+						"lat" : 7.7,
+						"lon" : 110.5,
+						"typhoonId" : "1301",
+						"fl" : 9.0,
+						"sd" : null,
+						"issueTime" : 1357398000000,
+						"qy" : 994.0,
+						"fs" : 23.0,
+						"d7" : 180.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "23c7ce64-ec7d-421a-a2fb-20530982c9cf",
+						"lat" : 7.4,
+						"lon" : 110.2,
+						"typhoonId" : "1301",
+						"fl" : 9.0,
+						"sd" : null,
+						"issueTime" : 1357408800000,
+						"qy" : 994.0,
+						"fs" : 23.0,
+						"d7" : 180.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "ede12226-ab3a-4855-a239-bc943d907545",
+						"lat" : 7.2,
+						"lon" : 110.0,
+						"typhoonId" : "1301",
+						"fl" : 9.0,
+						"sd" : null,
+						"issueTime" : 1357419600000,
+						"qy" : 994.0,
+						"fs" : 23.0,
+						"d7" : 180.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "88e55e99-2dfc-43c3-95b1-de8322d72871",
+						"lat" : 7.2,
+						"lon" : 110.0,
+						"typhoonId" : "1301",
+						"fl" : 9.0,
+						"sd" : null,
+						"issueTime" : 1357430400000,
+						"qy" : 994.0,
+						"fs" : 23.0,
+						"d7" : 180.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "c253ea6d-7ba5-49c3-92b6-cbfc73ebc95b",
+						"lat" : 7.2,
+						"lon" : 110.0,
+						"typhoonId" : "1301",
+						"fl" : 9.0,
+						"sd" : null,
+						"issueTime" : 1357441200000,
+						"qy" : 994.0,
+						"fs" : 23.0,
+						"d7" : 180.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "40f76caf-bc62-4a28-9390-246921ac522f",
+						"lat" : 7.4,
+						"lon" : 109.7,
+						"typhoonId" : "1301",
+						"fl" : 9.0,
+						"sd" : null,
+						"issueTime" : 1357452000000,
+						"qy" : 994.0,
+						"fs" : 23.0,
+						"d7" : 180.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "84119648-fbc6-4587-b63e-18f8fa6a9345",
+						"lat" : 7.5,
+						"lon" : 109.6,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357462800000,
+						"qy" : 998.0,
+						"fs" : 20.0,
+						"d7" : 150.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "da67d5a3-8a37-4772-8850-f61c5a5e4ea3",
+						"lat" : 7.4,
+						"lon" : 109.4,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357473600000,
+						"qy" : 998.0,
+						"fs" : 20.0,
+						"d7" : 150.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "370ac7c4-debc-493e-a20e-8896b7356464",
+						"lat" : 7.4,
+						"lon" : 108.9,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357484400000,
+						"qy" : 998.0,
+						"fs" : 18.0,
+						"d7" : 120.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "c9cc71e6-3f42-4633-bd0b-824f72726924",
+						"lat" : 7.3,
+						"lon" : 108.5,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357495200000,
+						"qy" : 998.0,
+						"fs" : 18.0,
+						"d7" : 120.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "4d3478be-8486-4386-8aac-e673fd313b1f",
+						"lat" : 7.1,
+						"lon" : 108.5,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357506000000,
+						"qy" : 998.0,
+						"fs" : 18.0,
+						"d7" : 120.0,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "7a332511-96f7-40b1-82e1-8854e0f0f220",
+						"lat" : 6.7,
+						"lon" : 107.3,
+						"typhoonId" : "1301",
+						"fl" : 8.0,
+						"sd" : null,
+						"issueTime" : 1357592400000,
+						"qy" : 998.0,
+						"fs" : 18.0,
+						"d7" : null,
+						"d10" : null,
+						"fx" : ""
+					}, {
+						"id" : "6a5e8d19-65c2-496a-9a75-17814a71bc4c",
+						"lat" : 6.1,
+						"lon" : 106.4,
+						"typhoonId" : "1301",
+						"fl" : 7.0,
+						"sd" : null,
+						"issueTime" : 1357678800000,
+						"qy" : 1000.0,
+						"fs" : 16.0,
+						"d7" : null,
+						"d10" : null,
+						"fx" : ""
+					}],
+					"affectedCities" : [{
+						"name" : "广州",
+						"id" : "50e4a098-c9b9-4e68-92f7-4640d4c976d3",
+						"lat" : "23.108",
+						"lon" : "113.265",
+						"typhoonId" : "1301"
+					}, {
+						"name" : "高雄",
+						"id" : "e5cb774a-8a40-4df5-abd1-b45b8355554b",
+						"lat" : "22.619",
+						"lon" : "120.276",
+						"typhoonId" : "1301"
+					}]
+				},
+				"detail" : null,
+				"success" : true
+			};
+			var map, typhoonPathLayer;
+			dojo.addOnLoad(function() {
+				var initExtent = new esri.geometry.Extent({
+					"xmin" : 10419318.306304146,
+					"ymin" : 2933410.061022882,
+					"xmax" : 15115609.324144125,
+					"ymax" : 4958685.562466374,
+					"spatialReference" : {
+						"wkid" : 102100
+					}
+				});
+				map = new esri.Map("map", {
+					extent : initExtent
+				});
+				var basemap = new esri.layers.ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer");
+				map.addLayer(basemap);
+
+				typhoonPathLayer = new esri.layers.GraphicsLayer();
+				map.addLayer(typhoonPathLayer);
+			});
+			Typhoon = {
+				current : {}
+			}
+			function startTyphoon() {
+				clear();
+				_parseTyphoon();
+				map.setExtent(_getPathListExtent(Typhoon.current.pathList));
+				Typhoon.current.moveTally = 0;
+				startMove();
+			}
+
+			function clear() {
+				$('#typhoonIcon').stop();
+				map.graphics.clear();
+				typhoonPathLayer.clear();
+				Typhoon.current = {};
+			}
+
+			function startMove() {
+				_convertPathList();
+				Typhoon.current.moveRunning = true;
+				_moveCurrent();
+			}
+
+			function _parseTyphoon() {
+				var pathList = [];
+				$.each(response.result.tracks, function(index, track) {
+					var point = esri.geometry.geographicToWebMercator(new esri.geometry.Point(track.lon, track.lat, new esri.SpatialReference({
+						wkid : 4326
+					})));
+					point.attrs = track;
+					pathList.push(point);
+				})
+				Typhoon.current.pathList = pathList;
+			}
+
+			function _getPathListExtent(pathList) {
+				var graphics = [];
+				$.each(pathList, function(index, point) {
+					var graphic = new esri.Graphic(point);
+					graphics.push(graphic);
+				})
+				var desExtent = esri.graphicsExtent(graphics);
+				return desExtent.expand(1.3);
+			}
+
+			function _moveCurrent() {
+				if (!Typhoon.current.moveRunning)
+					return;
+				var start;
+				if (Typhoon.current.moveTally == 0) {
+					this._createTyphoonIcon(Typhoon.current.pathList[0]);
+				}
+				Typhoon.current.moveTally++;
+				//先将graphic移动至开始点
+				$('#typhoonIcon').css({
+					top : Typhoon.current.pathList[Typhoon.current.moveTally - 1].y,
+					left : Typhoon.current.pathList[Typhoon.current.moveTally - 1].x,
+				});
+
+				//如果移动到头了就停止 移动，并清楚graphic
+				if (Typhoon.current.moveTally == (Typhoon.current.pathList.length - 1)) {
+					map.graphics.remove(Typhoon.current.typhoonIcon);
+					return;
+				}
+				//使用jquery的动画，事实的改变graphic的xy坐标
+				$('#typhoonIcon').animate({
+					top : Typhoon.current.pathList[Typhoon.current.moveTally].y,
+					left : Typhoon.current.pathList[Typhoon.current.moveTally].x
+				}, {
+					duration : 1500,
+					step : _updateTyphoonIcon,
+					complete : function() {
+						if (Typhoon.current.moveTally != (Typhoon.current.pathList.length - 1)) {
+							_moveCurrent();
+						} else {
+							if (Typhoon.repeat) {
+								Typhoon.current.moveTally = 0;
+								_moveCurrent();
+							} else {
+								map.graphics.remove(Typhoon.current.typhoonIcon);
+								stopMove();
+							}
+						}
+					}
+				});
+			}
+
+			function stopMove() {
+				$('#typhoonIcon').stop();
+				Typhoon.current.moveRunning = true;
+				Typhoon._moveCurrent();
+			}
+
+			function _updateTyphoonIcon(now, fx) {
+				var newPoint = Typhoon.current.typhoonIcon.geometry;
+				if (fx.prop == 'left') {
+					newPoint.setX(now);
+
+				} else if (fx.prop == 'top') {
+					newPoint.setY(now);
+				}
+				Typhoon.current.typhoonIcon.setGeometry(newPoint);
+			}
+
+			function _createTyphoonIcon(point) {
+				var pt = new esri.geometry.Point(point.x, point.y, map.spatialReference);
+				var typhoonSymbol = new esri.symbol.PictureMarkerSymbol('icon.gif', 24, 24);
+				Typhoon.current.typhoonIcon = new esri.Graphic(pt, typhoonSymbol);
+				map.graphics.add(Typhoon.current.typhoonIcon);
+			}
+
+			function _convertPathList() {
+                var convertedPathList = [];
+                $.each(Typhoon.current.pathList, function(index, point) {
+                    convertedPathList.push(map.toScreen(point));
+                });
+                Typhoon.current.convertedPathList = convertedPathList;
+            }
+		</script>
+	</head>
+	<body class="tundra">
+		<div id="map" >
+			<button onclick="startTyphoon()" style="position: absolute;left:230px;top:20px;z-index:10">
+				开始
+			</button>
+			<div id="typhoonIcon" style="position: absolute;width: 10px; height: 10px; background-color: #FFFF00;z-index:99999;display:none"></div>
+		</div>
+
+	</body>
+</html>

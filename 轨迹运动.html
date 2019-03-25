@@ -1,0 +1,210 @@
+<!doctype html> 
+<html> 
+<head> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+    <meta name="keywords" content="天地图山东" /> 
+    <title>天地图山东地图API－示例－在地图上添加一条折线</title>   
+   
+    <link type="text/css" rel="stylesheet" href="http://www.sdmap.gov.cn/api/agsapi/javascript/js/esri/css/esri.css" /> 
+    <script type="text/javascript" src="http://www.sdmap.gov.cn/api/agsapi/javascript/js/init.js"></script> 
+    <script type="text/javascript"> 
+        //定义地图对象 
+        var map; var graphic; var moving; var polylineJson; var points; 
+        //引入天地图山东矢量图层 
+        require(["esri/map", 
+        "tdlib/SDTDTLayer", 
+        "esri/geometry/Extent", 
+ 
+         "esri/geometry/Point", 
+         "esri/symbols/PictureMarkerSymbol", 
+ 
+        "esri/geometry/Polyline", 
+        "esri/SpatialReference", 
+        "esri/symbols/SimpleLineSymbol", 
+        "esri/graphic", "dojo/domReady!"], 
+    function (Map, SDTDTLayer, Extent, Point, PictureMarkerSymbol, Polyline, SpatialReference, SimpleLineSymbol, Graphic) { 
+        //地图初始化 
+        map = new Map("mapDiv", 
+         { 
+             logo: false, 
+             slider: false, 
+             nav: false, 
+             extent: new Extent({ xmin: 116.5, ymin: 36.2, xmax: 117.5, ymax: 37.2, spatialReference: { wkid: 4490} }) 
+         }); 
+ 
+        //图层初始化 
+        var sdvecLayer = new SDTDTLayer(); 
+        //添加图层到地图 
+        map.addLayer(sdvecLayer); 
+        // sdvecLayer.on('mouse-move',function(evt){
+        //     console.log(evt.graphic.geometry.x,evt.graphic.geometry.y);
+        // });
+ 
+        polylineJson = { 
+            // "paths": [[[116.895, 36.6513], [116.972, 36.773], [117.089212, 36.65343], [117.466312, 36.73743]]], 
+            // "paths": [[[117.466312, 36.73743], [117.466212, 36.63743]]], 
+            "paths": [[[116.895, 36.6513], [116.972, 36.773], [117.089212, 36.65343], [117.466312, 36.73743], [117.466212, 36.63743],[117.335212, 36.63743]]], 
+             
+            "spatialReference": { "wkid": 4490 } 
+        }; 
+        var polyline = new Polyline(polylineJson); 
+        var sls = new SimpleLineSymbol( 
+                SimpleLineSymbol.STYLE_DASH, 
+                new esri.Color([0, 225, 0]), 
+            3); 
+        var graphic2 = new Graphic(polyline, sls); 
+        map.graphics.add(graphic2); 
+ 
+        var point = new Point(116.895, 36.6513, new SpatialReference({ wkid: 4490 })); 
+        var pictureMarkerSymbol = new PictureMarkerSymbol('http://www.sdmap.gov.cn/api/images/car.png', 25, 51); 
+        graphic = new Graphic(point, pictureMarkerSymbol); 
+ 
+        map.graphics.add(graphic); 
+ 
+        document.getElementById("openTool").onclick = function () { 
+            points = polylineJson.paths[0]; 
+ 
+            graphic.geometry.x = points[0][0]; 
+            graphic.geometry.y = points[0][1]; 
+            map.graphics.redraw(); 
+ 
+            move(0, 1); 
+        } 
+        document.getElementById("closeTool").onclick = function () { 
+            clearInterval(moving); 
+        } 
+ 
+        ///根据序列点坐标 进行移动 
+        function move(start, end) { 
+            var x1 = points[start][0]; 
+            var y1 = points[start][1]; 
+            var x2 = points[end][0]; 
+            var y2 = points[end][1]; 
+
+            // console.log('start',start,'end',end);
+            // console.log('points',x1,y1,x2,y2);
+ 
+            var p = (y2 - y1) / (x2 - x1); //斜率 
+            var v = 0.01; //速度 
+ 
+            moving = setInterval(function () {
+                
+                var deltaX=x2-x1;
+                var deltaY=y2-y1;                 
+
+
+                //分别计算 x,y轴方向速度 
+                // if (Math.abs(p) == Number.POSITIVE_INFINITY) {//正无穷大
+                //     graphic.geometry.y += v; 
+                // }
+                // // else if(p == Number.NEGATIVE_INFINITY){//负无穷大
+                // //     graphic.geometry.y -= v; 
+                // // }
+                // else { 
+                //     graphic.geometry.x += (1 / Math.sqrt(1 + p * p)) * v; 
+                //     graphic.geometry.y += (p / Math.sqrt(1 + p * p)) * v; 
+                // }
+
+                // if(deltaX<0.0000001){
+                //     if(deltaY>0){
+                //         graphic.geometry.y += v; 
+                //         // graphic.symbol.angle=0;
+                //     }
+                //     else{
+                //         graphic.geometry.y -= v; 
+                //         // graphic.symbol.angle=180;
+                //     }
+                // }
+
+                // if(deltaY<0.0000001){
+                //     if(deltaX>0){
+                //         graphic.geometry.x += v; 
+                //         // graphic.symbol.angle=90;
+                //     }
+                //     else{
+                //         graphic.geometry.x -= v; 
+                //         // graphic.symbol.angle=270;
+                //     }
+                // }
+
+                // var theta=Math.atan(p);
+
+                // graphic.geometry.x += Math.cos(theta)* v;
+                // graphic.geometry.y += Math.sin(theta)* v;
+
+                if(deltaX>0){
+                    graphic.geometry.x += Math.abs(1 / Math.sqrt(1 + p * p)) * v; 
+                }else{
+                    graphic.geometry.x -= Math.abs(1 / Math.sqrt(1 + p * p)) * v;
+                }
+                
+                if(deltaY>0){
+                    graphic.geometry.y += Math.abs(p / Math.sqrt(1 + p * p)) * v; 
+                }else{
+                    graphic.geometry.y -= Math.abs(p / Math.sqrt(1 + p * p)) * v; 
+                }
+
+
+
+
+                // if(deltaX>0&&deltaY>0){
+                //     graphic.geometry.x += (1 / Math.sqrt(1 + p * p)) * v;
+                //     graphic.geometry.y += (p / Math.sqrt(1 + p * p)) * v;  
+                //     //计算汽车角度 
+                //     // graphic.symbol.angle = (Math.PI / 2 - Math.atan(p)) * 180 / Math.PI; 
+                // }else if(deltaX>0&&deltaY<0){
+                //     graphic.geometry.x += (1 / Math.sqrt(1 + p * p)) * v;
+                //     graphic.geometry.y += (p / Math.sqrt(1 + p * p)) * v;  
+                //     // graphic.symbol.angle = -90-Math.atan(p) * 180 / Math.PI; 
+                // }else if(deltaX<0&&deltaY>0){
+                //     graphic.geometry.x -= (1 / Math.sqrt(1 + p * p)) * v;
+                //     graphic.geometry.y -= (p / Math.sqrt(1 + p * p)) * v; 
+                //     // graphic.symbol.angle = (Math.PI / 2 - Math.atan(p)) * 180 / Math.PI; 
+                // }else if(deltaX<0&&deltaY<0){
+                //     graphic.geometry.x -= (1 / Math.sqrt(1 + p * p)) * v;
+                //     graphic.geometry.y -= (p / Math.sqrt(1 + p * p)) * v; 
+                //     // graphic.symbol.angle = (Math.PI / 2 - Math.atan(p)) * 180 / Math.PI+180; 
+                // }
+
+
+
+                //计算汽车角度 
+                graphic.symbol.angle = (Math.PI / 2 - Math.atan(p)) * 180 / Math.PI; 
+
+                // console.log('angle',graphic.symbol.angle);
+                
+                //图层刷新 
+                map.graphics.redraw(); 
+ 
+                // if (Math.abs(graphic.geometry.x - x2) < 0.01 && Math.abs(graphic.geometry.y - y2) < 0.01) { 
+                if (Math.pow((graphic.geometry.x - x2),2)+Math.pow((graphic.geometry.y - y2),2) < 0.01*0.01) {
+                    clearInterval(moving); 
+                    start++; 
+                    end++; 
+ 
+                    if (end < points.length) 
+                        move(start, end) 
+                } 
+            }, 50); 
+        } 
+ 
+    }); 
+      
+  
+    </script> 
+</head> 
+<body> 
+      
+        <div id="mapDiv" style="position:absolute;width:600px; height:500px"> 
+        </div> 
+        <div style="position:absolute;left:650px;">  
+            在地图上添加一条折线。<br /> 
+            <input type="button" id="openTool" value="开启" /> 
+            <input type="button" id="closeTool" value="关闭" /> 
+        <p><a href="http://www.sdmap.gov.cn/api/agsapi/examples.html">返回所有范例列表</a></p> 
+      
+          
+          
+    </div> 
+</body> 
+</html> 
